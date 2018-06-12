@@ -20,17 +20,10 @@ import RoomList from './components/RoomList';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
 
-      <nav className="navbar">
-            <div className = "links-container">
-            <Link to='/RoomList' className="navbar-link">Chat Rooms</Link>
-       </div>
-            </nav>
-            ‘<RoomList firebase={firebase}/>’
-            <Route exact path="/" component={App} />
-            <Route path="/roomlist" component={RoomList} />
+    return (
+      <div>
+      <RoomList firebase={firebase}/>
       </div>
     );
   }
