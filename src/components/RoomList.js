@@ -21,7 +21,6 @@ class RoomList extends Component {
   }
 
   render() {
-    console.error(this.state.rooms)
     return (
       <div>
         <Rooms data={this.state.rooms} />
