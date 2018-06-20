@@ -4,13 +4,19 @@ import * as firebase from "firebase";
 class RoomList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [] };
+    this.state = { rooms: [], roomName: ""};
     this.roomsRef = this.props.firebase.database().ref("rooms");
   }
 
   handleRoomCreation(event) {
     event.preventDefault();
-    this.roomsRef.push({ room_name: this.state.roomName });
+    this.roomsRef.push({ roomName: this.state.roomName });
+    this.setState({roomName: ""})
+  }
+
+  handleChange(event){
+    event.preventDefault();
+    this.setState({roomName: event.target.value})
   }
 
   componentDidMount() {
