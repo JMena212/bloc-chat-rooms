@@ -11,7 +11,6 @@ class RoomList extends Component {
   handleRoomCreation(event) {
     event.preventDefault();
     this.roomsRef.push({ roomName: this.state.roomName });
-    this.setState({ roomName: event.target.roomName });
   }
 
   handleChange(event) {
@@ -21,15 +20,15 @@ class RoomList extends Component {
 
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {
-      var room =  snapshot.val();
+      var room = { data: snapshot.val(), key: snapshot.key };
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
   }
 
   render() {
+    
     const Rooms = ({ data }) =>
-      data.map(room => <div key={room.key}>{room.roomName}</div>);
-    console.log("ROOM NAME: ", this.state.roomName);
+      data.map(room => <div key={room.key}>{room.data.roomName}</div>);
     return (
       <div>
         <Rooms data={this.state.rooms} />
