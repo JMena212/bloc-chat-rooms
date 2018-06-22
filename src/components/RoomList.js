@@ -4,19 +4,19 @@ import * as firebase from "firebase";
 class RoomList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [], roomName: ""};
+    this.state = { rooms: [], roomName: "" };
     this.roomsRef = this.props.firebase.database().ref("rooms");
   }
 
   handleRoomCreation(event) {
     event.preventDefault();
     this.roomsRef.push({ roomName: this.state.roomName });
-    this.setState({roomName: ""})
+    this.setState({ roomName: event.target.roomName });
   }
 
-  handleChange(event){
+  handleChange(event) {
     event.preventDefault();
-    this.setState({roomName: event.target.value})
+    this.setState({ roomName: event.target.value });
   }
 
   componentDidMount() {
@@ -27,29 +27,26 @@ class RoomList extends Component {
   }
 
   render() {
+    const Rooms = ({ data }) =>
+      data.map(room => <div key={room.key}>{room.roomName}</div>);
+  console.log("ROOM NAME: ", this.state.roomName)
     return (
       <div>
         <Rooms data={this.state.rooms} />
-        <Form
-          handleRoomCreation={this.handleRoomCreation}
-          handleChange={this.handleChange}
-          roomName={this.state.roomName}
-        />
+        <form onSubmit={this.handleRoomCreation.bind(this)}>
+          <label>
+            Room Name:
+            <input
+              type="text"
+              value={this.state.roomName}
+              onChange={this.handleChange.bind(this)}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
 }
 
 export default RoomList;
-
-const Rooms = ({data}) => data.map(room => <div key={room.key}>{room.roomName} </div>)
-
-const Form = ({ handleRoomCreation, handleChange, roomName }) => (
-  <form onSubmit={handleRoomCreation}>
-    <label>
-      Room Name:
-      <input type="text" value={roomName} onChange={handleChange} />
-    </label>
-    <input type="submit" value="Submit" />
-  </form>
-);
