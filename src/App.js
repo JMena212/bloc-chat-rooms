@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import logo from './logo.svg';
 import './App.css';
 import RoomList from './components/RoomList';
+import MessageList from './components/MessageList'
 
 // Initialize Firebase
   var config = {
@@ -24,7 +25,9 @@ class App extends Component {
     return (
       <div>
       <RoomList firebase={firebase}/>
+      <MessageList firebase={firebase}/>
       </div>
+
     );
   }
 }
