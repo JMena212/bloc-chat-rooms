@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
-import MessageList from './components/MessageList'
-import '.././styles/roomlist.css';
+import MessageList from "./MessageList";
+import firebase from '../lib/firebase.js'
 
 class RoomList extends Component {
   constructor(props) {
     super(props);
     this.state = { rooms: [], roomName: "" };
-    this.roomsRef = this.props.firebase.database().ref("rooms");
+    this.roomsRef = firebase.database().ref("rooms");
   }
 
   handleChange(event) {
@@ -15,13 +14,14 @@ class RoomList extends Component {
     this.setState({ roomName: event.target.value });
   }
 
-
-//handlesubmit
+  //handlesubmit
   handleRoomCreation(event) {
     event.preventDefault();
-    if (!this.state.roomName) { return }
+    if (!this.state.roomName) {
+      return;
+    }
     this.roomsRef.push({ roomName: this.state.roomName });
-    this.setState({roomName: ''})
+    this.setState({ roomName: "" });
   }
 
   componentDidMount() {
