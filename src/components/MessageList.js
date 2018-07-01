@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
+import RoomList from './RoomList';
+
 
 
 class MessageList extends Component {
@@ -10,7 +12,7 @@ class MessageList extends Component {
       content: "",
       messages: [],
       sentAt: firebase.database.ServerValue.TIMESTAMP,
-      roomId: "room.key"
+      /*roomId: room.data.roomName*/
     };
     this.msgRef = this.props.firebase.database().ref("messages");
   }
