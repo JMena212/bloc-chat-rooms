@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MessageList from "./MessageList";
 import firebase from '../lib/firebase.js'
+import { Link }  from 'react-router-dom';
 
 class RoomList extends Component {
   constructor(props) {
@@ -33,11 +34,10 @@ class RoomList extends Component {
 
   render() {
     const Rooms = ({ data }) =>
-          data.map(room => <p className="room-links" key={room.key}>{room.data.roomName}</p>);
-  
+          data.map(room => <a href= {`/rooms/${this.state.rooms.id}`}><p className="room-links" key={room.key}>{room.data.roomName}</p></a>);
     return (
       <div>
-        <a href= {`rooms/${rooms.id}`}><Rooms data={this.state.rooms}/></a>
+        <a href= {`/rooms/${this.state.rooms.id}`}><Rooms data={this.state.rooms}/></a>
 
         <form onSubmit={this.handleRoomCreation.bind(this)}>
           <label>
