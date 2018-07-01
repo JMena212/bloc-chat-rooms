@@ -33,11 +33,11 @@ class RoomList extends Component {
 
   render() {
     const Rooms = ({ data }) =>
-          data.map(room => <p className="room-links" key={room.key}>{room.data.roomName}</p>)
-
+          data.map(room => <p className="room-links" key={room.key}>{room.data.roomName}</p>);
+  
     return (
       <div>
-        <a href={`/rooms/${rooms.id}`}><Rooms data={this.state.rooms}/></a>
+        <a href= {`rooms/${rooms.id}`}><Rooms data={this.state.rooms}/></a>
 
         <form onSubmit={this.handleRoomCreation.bind(this)}>
           <label>

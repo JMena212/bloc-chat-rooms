@@ -12,7 +12,7 @@ class MessageList extends Component {
       content: "",
       messages: [],
       sentAt: firebase.database.ServerValue.TIMESTAMP,
-      /*roomId: room.data.roomName*/
+      /*roomId: this.state.room.roomName*/
     };
     this.msgRef = this.props.firebase.database().ref("messages");
   }
