@@ -9,12 +9,23 @@ import ActiveRoom from './components/ActiveRoom'
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeRoom: null };
+    this.setRoom = this.setRoom.bind(this);
+  }
+
+  setRoom(room) {
+    this.setState({activeRoom: room})
+  }
+
+
   render() {
 
     return (
       <div>
       <Route exact path="/" component={RoomList} />
-      <Route path="/rooms/:id" component={ActiveRoom}/>
+      <Route path="/rooms/:id" component={RoomList}/>
       </div>
 
     );

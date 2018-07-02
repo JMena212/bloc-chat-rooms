@@ -3,7 +3,7 @@
     background-color: #1E90FF;
     width: 140px;
 }
-.nav-pills {
+.nav-pills>li>a {
     border-radius: 4px;
 }
 .nav>li>a {
