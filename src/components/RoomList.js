@@ -5,7 +5,10 @@ import { Link }  from 'react-router-dom';
 import {NavItem} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
 import {Navbar} from 'react-bootstrap';
+import {PageHeader} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import '../styles/roomlist.css'
+import '../styles/normalize.css'
 require("react-bootstrap/lib/NavbarHeader")
 
 class RoomList extends Component {
@@ -39,12 +42,15 @@ class RoomList extends Component {
 
   render() {
     const Rooms = ({ data }) =>
-          data.map(room => <Nav bsStyle="pills" stacked activeKey={1} >
+          data.map(room => <Nav bsStyle="pills"  >
                     <NavItem href= {`/rooms/${this.state.rooms.id}`} key={room.key}>{room.data.roomName}</NavItem>
                     </Nav>);
     return (
       <div className="Roomlist">
-      <Navbar.Header> BLOC Chat Rooms</Navbar.Header>
+      <PageHeader>
+        Bloc Chat Rooms
+      </PageHeader>
+
       <form onSubmit={this.handleRoomCreation.bind(this)}>
         <label>
           Create New Chat Room:
@@ -57,7 +63,7 @@ class RoomList extends Component {
         <input type="submit" value="Submit" />
       </form>
 
-        <Rooms data={this.state.rooms}/>
+        <Rooms data={this.state.rooms}/> 
 
 
       </div>
