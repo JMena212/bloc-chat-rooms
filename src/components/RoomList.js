@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import MessageList from "./MessageList";
 import firebase from '../lib/firebase.js'
 import { Link }  from 'react-router-dom';
+import {NavItem} from 'react-bootstrap';
+import {Nav} from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
+import '../styles/roomlist.css'
+require("react-bootstrap/lib/NavbarHeader")
 
 class RoomList extends Component {
   constructor(props) {
@@ -34,22 +39,27 @@ class RoomList extends Component {
 
   render() {
     const Rooms = ({ data }) =>
-          data.map(room => <a href= {`/rooms/${this.state.rooms.id}`}><p className="room-links" key={room.key}>{room.data.roomName}</p></a>);
+          data.map(room => <Nav bsStyle="pills" stacked activeKey={1} >
+                    <NavItem href= {`/rooms/${this.state.rooms.id}`} key={room.key}>{room.data.roomName}</NavItem>
+                    </Nav>);
     return (
-      <div>
-        <a href= {`/rooms/${this.state.rooms.id}`}><Rooms data={this.state.rooms}/></a>
+      <div className="Roomlist">
+      <Navbar.Header> BLOC Chat Rooms</Navbar.Header>
+      <form onSubmit={this.handleRoomCreation.bind(this)}>
+        <label>
+          Create New Chat Room:
+          <input
+            type="text"
+            value={this.state.roomName}
+            onChange={this.handleChange.bind(this)}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
 
-        <form onSubmit={this.handleRoomCreation.bind(this)}>
-          <label>
-            Room Name:
-            <input
-              type="text"
-              value={this.state.roomName}
-              onChange={this.handleChange.bind(this)}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <Rooms data={this.state.rooms}/>
+
+
       </div>
 
 

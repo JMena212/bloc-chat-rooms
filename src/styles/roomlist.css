@@ -1,0 +1,25 @@
+.nav-pills {
+    color: #fff;
+    background-color: #1E90FF;
+    width: 140px;
+}
+.nav-pills>li>a {
+    border-radius: 4px;
+}
+.nav>li>a {
+    padding: 5px 5px;
+}
+.nav>li, .nav>li>a {
+    position: relative;
+    display: inline-grid;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
