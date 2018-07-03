@@ -1,15 +1,23 @@
 import React, { Component } from "react";
 import MessageList from "./MessageList";
-import firebase from '../lib/firebase.js'
-import { Link }  from 'react-router-dom';
-import {NavItem} from 'react-bootstrap';
-import {Nav} from 'react-bootstrap';
-import {Navbar} from 'react-bootstrap';
-import {PageHeader} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
-import '../styles/roomlist.css'
-import '../styles/normalize.css'
-require("react-bootstrap/lib/NavbarHeader")
+import firebase from "../lib/firebase.js";
+import { Link } from "react-router-dom";
+import { NavItem } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
+import { PageHeader } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import "../styles/roomlist.css";
+import "../styles/normalize.css";
+
+
+{/*
+
+  Hmm I'm not sure that there is anything exactly comparable. Here are the starting steps:
+  4. Use it in the ROomList component attached to a click handler as `this.props.setRoom` and pass in the room you map over as the argument.
+*/}
+
+
 
 class RoomList extends Component {
   constructor(props) {
@@ -40,35 +48,35 @@ class RoomList extends Component {
     });
   }
 
+  handleClick = ev => {
+    /*room.setRoom();*/
+  };
+
   render() {
     const Rooms = ({ data }) =>
-          data.map(room => <Nav bsStyle="pills"  >
-                    <NavItem href= {`/rooms/${this.state.rooms.id}`} key={room.key}>{room.data.roomName}</NavItem>
-                    </Nav>);
+      data.map(room => (
+        <Nav bsStyle="pills" onClick={this.handleClick}>
+          <NavItem href={`/room/${this.state.rooms.id}`} key={room.key}>
+            {room.data.roomName}
+          </NavItem>
+        </Nav>
+      ));
     return (
       <div className="Roomlist">
-      <PageHeader>
-        Bloc Chat Rooms
-      </PageHeader>
-
-      <form onSubmit={this.handleRoomCreation.bind(this)}>
-        <label>
-          Create New Chat Room:
-          <input
-            type="text"
-            value={this.state.roomName}
-            onChange={this.handleChange.bind(this)}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-
-        <Rooms data={this.state.rooms}/> 
-
-
+        <PageHeader>Bloc Chat Rooms</PageHeader>
+        <form onSubmit={this.handleRoomCreation.bind(this)}>
+          <label>
+            Create New Chat Room:
+            <input
+              type="text"
+              value={this.state.roomName}
+              onChange={this.handleChange.bind(this)}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <Rooms data={this.state.rooms} />
       </div>
-
-
     );
   }
 }
