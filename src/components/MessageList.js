@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
-import RoomList from './RoomList';
-
-
+import RoomList from "./RoomList";
 
 class MessageList extends Component {
   constructor(props) {
@@ -12,50 +10,67 @@ class MessageList extends Component {
       content: "",
       messages: [],
       sentAt: firebase.database.ServerValue.TIMESTAMP,
-      /*roomID: roomkey*/
+      roomId: ""
     };
-    this.msgRef = this.props.firebase.database().ref("messages");
+    this.messagesRef = this.props.firebase.database.ref("messages");
   }
 
   handleChange(event) {
     event.preventDefault();
-    this.setState({ content: event.target.value });
+    this.setState({
+      content: event.target.value,
+      roomId: this.props.activeRoom
+    });
   }
 
-  //handlesubmit
-  handleSubmit(event) {
+  createMessage(event) {
     event.preventDefault();
     if (!this.state.content) {
       return;
     }
-    this.msgRef.push({ content: this.state.content });
+    this.msgRef.push({
+      content: this.state.content,
+      sentAt: this.state.sentAt,
+      username: this.state.username
+    });
     this.setState({ message: "" });
   }
 
   componentDidMount() {
     this.msgRef.on("child_added", snapshot => {
-      var message = { data: snapshot.val(), key: snapshot.key };
-      this.setState({ Messages: this.state.messages.concat(message) });
+      const message = snapshot.val();
+      message.key = snapshot.key;
+      this.setState({ messages: this.state.messages.concat(message) });
     });
   }
 
   render() {
-    const Messages = ({ data }) =>
-      data.map(message => <div key={message.key}>{message.data.content}</div>);
+    const activeRoom = this.props.activeRoom;
+    const Messages = this.state.messages.map(message => {
+      if (message.roomId === activeRoom) {
+        return <div key={message.key}>{message.content}</div>;
+      }
+      return {RoomList};
+    });
+
+    const newMsgForm = (
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <label>
+          Message:
+          <input
+            type="text"
+            value={this.state.content}
+            onChange={this.handleChange.bind(this)}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+
     return (
       <div>
-        <Messages data={this.state.messages} />
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <label>
-            Message:
-            <input
-              type="text"
-              value={this.state.content}
-              onChange={this.handleChange.bind(this)}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        {newMsgForm}
+        {Messages}
       </div>
     );
   }

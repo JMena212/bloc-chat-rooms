@@ -17,5 +17,3 @@ class ActiveRoom extends Component {
 
    }
 }
-
-export default ActiveRoom;

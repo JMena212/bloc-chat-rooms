@@ -10,14 +10,13 @@ import { Button } from "react-bootstrap";
 import "../styles/roomlist.css";
 import "../styles/normalize.css";
 
-
-{/*
+{
+  /*
 
   Hmm I'm not sure that there is anything exactly comparable. Here are the starting steps:
   4. Use it in the ROomList component attached to a click handler as `this.props.setRoom` and pass in the room you map over as the argument.
-*/}
-
-
+*/
+}
 
 class RoomList extends Component {
   constructor(props) {
@@ -43,39 +42,45 @@ class RoomList extends Component {
 
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {
-      var room = { data: snapshot.val(), key: snapshot.key };
+      const room = snapshot.val();
+      room.key = snapshot.key ;
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
   }
 
-  handleClick = ev => {
-    /*room.setRoom();*/
-  };
+  setRoom(room) {
+    this.props.activeRoom(room);
+  }
 
   render() {
-    const Rooms = ({ data }) =>
-      data.map(room => (
-        <Nav bsStyle="pills" onClick={this.handleClick}>
-          <NavItem href={`/room/${this.state.rooms.id}`} key={room.key}>
-            {room.data.roomName}
+    const Rooms = this.state.rooms.map((room) =>
+        <Nav bsStyle="pills">
+          <NavItem onClick={this.setRoom} key={room.key}>
+            {room.roomName}
           </NavItem>
         </Nav>
-      ));
+      );
+
+    const createForm = (
+      <form onSubmit={this.handleRoomCreation.bind(this)}>
+        <label>
+          Create New Chat Room:
+          <input
+            type="text"
+            value={this.state.roomName}
+            onChange={this.handleChange.bind(this)}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+
     return (
       <div className="Roomlist">
         <PageHeader>Bloc Chat Rooms</PageHeader>
-        <form onSubmit={this.handleRoomCreation.bind(this)}>
-          <label>
-            Create New Chat Room:
-            <input
-              type="text"
-              value={this.state.roomName}
-              onChange={this.handleChange.bind(this)}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-        <Rooms data={this.state.rooms} />
+        {createForm}
+        <h2> Join a Chat Room </h2>
+        {Rooms}
       </div>
     );
   }
