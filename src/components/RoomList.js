@@ -10,14 +10,6 @@ import { Button } from "react-bootstrap";
 import "../styles/roomlist.css";
 import "../styles/normalize.css";
 
-{
-  /*
-
-  Hmm I'm not sure that there is anything exactly comparable. Here are the starting steps:
-  4. Use it in the ROomList component attached to a click handler as `this.props.setRoom` and pass in the room you map over as the argument.
-*/
-}
-
 class RoomList extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +22,6 @@ class RoomList extends Component {
     this.setState({ roomName: event.target.value });
   }
 
-  //handlesubmit
   handleRoomCreation(event) {
     event.preventDefault();
     if (!this.state.roomName) {
@@ -43,23 +34,19 @@ class RoomList extends Component {
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {
       const room = snapshot.val();
-      room.key = snapshot.key ;
+      room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
   }
 
-  setRoom(room) {
-    this.props.setRoom(room);
-  }
-
   render() {
-    const Rooms = this.state.rooms.map((room) =>
-        <Nav bsStyle="pills">
-          <NavItem onClick={this.setRoom} key={room.key}>
-            {room.roomName}
-          </NavItem>
-        </Nav>
-      );
+    const Rooms = this.state.rooms.map(room => (
+      <Nav bsStyle="pills">
+        <a href={`/rooms/${room.roomName}`} onClick={this.props.setRoom.bind(this)} key={room.key}>
+          {room.roomName}
+        </a>
+      </Nav>
+    ));
 
     const createForm = (
       <form onSubmit={this.handleRoomCreation.bind(this)}>
