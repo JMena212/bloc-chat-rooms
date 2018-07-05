@@ -49,7 +49,7 @@ class RoomList extends Component {
   }
 
   setRoom(room) {
-    this.props.activeRoom(room);
+    this.props.setRoom(room);
   }
 
   render() {
