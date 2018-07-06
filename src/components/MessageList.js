@@ -47,12 +47,9 @@ class MessageList extends Component {
   }
 
   render() {
-    const activeRoom = this.props.activeRoom;
-    const Messages = this.state.messages.map(message => {
-      if (message.roomId === activeRoom.key) {
-        <li key={message.key}>{message.content}</li>;
-      }
-    });
+    const Messages = this.state.messages.map(message => (
+      <li key={message.key}>{message.content}</li>
+    ));
 
     const newMsgForm = (
       <form onSubmit={this.handleSubmit.bind(this)}>

@@ -13,7 +13,7 @@ import "../styles/normalize.css";
 class RoomList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [], roomName: "" };
+    this.state = { rooms: [], roomName: "", roomId: this.props.roomId};
     this.roomsRef = firebase.database().ref("rooms");
   }
 
@@ -28,7 +28,7 @@ class RoomList extends Component {
       return;
     }
     this.roomsRef.push({ roomName: this.state.roomName });
-    this.setState({ roomName: "" });
+    this.setState({ roomName: ""});
   }
 
   componentDidMount() {
@@ -42,7 +42,7 @@ class RoomList extends Component {
   render() {
     const Rooms = this.state.rooms.map(room => (
       <Nav bsStyle="pills">
-        <a href={`/rooms/${room.roomName}`} onClick={this.props.setRoom.bind(this)} key={room.key}>
+        <a href={`/rooms/${room.roomName}`} onClick={this.props.setRoom} key={room.key}>
           {room.roomName}
         </a>
       </Nav>
@@ -70,6 +70,7 @@ class RoomList extends Component {
         {Rooms}
       </div>
     );
+    <MessageList roomId={this.state.roomId}/>
   }
 }
 

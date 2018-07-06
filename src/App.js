@@ -9,7 +9,7 @@ import MessageList from "./components/MessageList";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeRoom: "" };
+    this.state = { activeRoom: "", roomId: "" };
     this.setRoom = this.setRoom.bind(this);
   }
 
@@ -18,18 +18,19 @@ class App extends Component {
   }
 
   render() {
-
+    const activeRoom = this.state.activeRoom;
     return (
       <div>
-        <Route exact path="/" component={RoomList} />
-        <Route path="/rooms/:id" component={MessageList} />
+        <RoomList />
+        <MessageList />
+
       </div>
 
     );
-    <div>
-    <RoomList setRoom={this.setRoom.bind(this)} />
-    <RoomList activeRoom={this.state.activeRoom} />
-    </div>
+     <div>
+     <MessageList roomId={this.state.roomId}/>
+     <RoomList roomId={this.state.roomId}/>
+     </div>
   }
 }
 
