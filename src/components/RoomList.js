@@ -13,7 +13,7 @@ import "../styles/normalize.css";
 class RoomList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [], roomName: "", roomId: this.props.roomId};
+    this.state = { rooms: [], roomName: ""};
     this.roomsRef = firebase.database().ref("rooms");
   }
 
@@ -27,24 +27,25 @@ class RoomList extends Component {
     if (!this.state.roomName) {
       return;
     }
-    this.roomsRef.push({ roomName: this.state.roomName });
+    this.roomsRef.push({ roomName: this.state.roomName});
     this.setState({ roomName: ""});
   }
+
 
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
-      this.setState({ rooms: this.state.rooms.concat(room) });
+      this.setState({ rooms: this.state.rooms.concat(room)});
+
     });
   }
 
   render() {
+    console.log(this.state.roomId);
     const Rooms = this.state.rooms.map(room => (
       <Nav bsStyle="pills">
-        <a href={`/rooms/${room.roomName}`} onClick={this.props.setRoom} key={room.key}>
-          {room.roomName}
-        </a>
+        <a href={room.key}  key={room.key}>{room.roomName}</a>
       </Nav>
     ));
 
@@ -70,7 +71,7 @@ class RoomList extends Component {
         {Rooms}
       </div>
     );
-    <MessageList roomId={this.state.roomId}/>
+
   }
 }
 

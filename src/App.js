@@ -9,12 +9,8 @@ import MessageList from "./components/MessageList";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeRoom: "", roomId: "" };
-    this.setRoom = this.setRoom.bind(this);
-  }
-
-  setRoom(room) {
-    this.setState({ activeRoom: room });
+    var roomPath = window.location.pathname.substr(1)
+    this.state = { activeRoom: "", roomId: roomPath };
   }
 
   render() {
@@ -22,16 +18,9 @@ class App extends Component {
     return (
       <div>
         <RoomList />
-        <MessageList/>
-
+        <MessageList roomId={this.state.roomId}/>
       </div>
-
     );
-     <div>
-     <MessageList roomId={this.state.roomId}/>
-     <RoomList roomId={this.state.roomId}/>
-     <MessageList activeRoom={this.state.activeRoom}/>
-     </div>
   }
 }
 
