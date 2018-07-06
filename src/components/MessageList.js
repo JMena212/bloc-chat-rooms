@@ -20,7 +20,8 @@ class MessageList extends Component {
     this.setState({
       content: event.target.value,
       sentAt: "",
-      username: this.state.username
+      username: this.state.username,
+      roomId: ""
     });
   }
 
@@ -47,9 +48,12 @@ class MessageList extends Component {
   }
 
   render() {
-    const Messages = this.state.messages.map(message => (
-      <li key={message.key}>{message.content}</li>
-    ));
+    const Messages = this.state.messages.map(message => {
+      if (message.roomId === this.props.activeRoom) {
+        return <li key={message.key}>{message.content}</li>;
+      }
+      return null;
+    });
 
     const newMsgForm = (
       <form onSubmit={this.handleSubmit.bind(this)}>

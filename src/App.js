@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div>
         <RoomList />
-        <MessageList />
+        <MessageList/>
 
       </div>
 
@@ -30,6 +30,7 @@ class App extends Component {
      <div>
      <MessageList roomId={this.state.roomId}/>
      <RoomList roomId={this.state.roomId}/>
+     <MessageList activeRoom={this.state.activeRoom}/>
      </div>
   }
 }
