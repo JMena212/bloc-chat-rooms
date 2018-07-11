@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MessageList from './MessageList'
 import * as firebase from "firebase";
 
 

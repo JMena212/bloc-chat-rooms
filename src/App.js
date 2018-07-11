@@ -9,16 +9,16 @@ import MessageList from "./components/MessageList";
 class App extends Component {
   constructor(props) {
     super(props);
-    var roomPath = window.location.pathname.substr(1)
+    var roomPath = window.location.pathname.substr(1);
     this.state = { activeRoom: "", roomId: roomPath };
   }
 
   render() {
-    const activeRoom = this.state.activeRoom;
+
     return (
       <div>
         <RoomList />
-        <MessageList roomId={this.state.roomId}/>
+        <MessageList roomId={this.state.roomId} />
       </div>
     );
   }
