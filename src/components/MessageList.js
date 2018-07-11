@@ -45,9 +45,8 @@ class MessageList extends Component {
   }
 
   render() {
-    console.log(this.props.roomId);
     const Messages = this.state.messages.map(message => (
-      <li key={message.key}>{message.content}</li>
+      <li className="Messages" key={message.key}>{message.content}</li>
     ));
     console.log(this.props.roomId);
 
