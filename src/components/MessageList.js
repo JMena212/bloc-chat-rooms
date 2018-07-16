@@ -1,23 +1,77 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
+import firebase from "../lib/firebase.js";
+import RoomList from "./RoomList";
+import '.././styles/chat.css'
 
 class MessageList extends Component {
- constructor(props){
-   super(props);
-   this.state = { username: "<USERNAME HERE>",
-    content: "<CONTENT OF THE MESSAGE HERE>",
-    sentAt: "<TIME MESSAGE WAS SENT HERE>",
-    roomId: "<ROOM UID HERE>"}
-    this.msgRef = this.props.firebase.database().ref("messages");
- }
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: "",
+      messages: []
+    };
+    this.messagesRef = firebase.database().ref("messages");
+  }
 
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({
+      content: event.target.value,
+      username: this.state.username
+    });
+  }
 
- componentDidMount() {
-   this.roomsRef.on("child_added", snapshot => {
-     var message = { data: snapshot.val(), key: snapshot.key };
-     this.setState({ rooms: this.state.rooms.concat(room) });
-   });
- }
+  handleSubmit(event) {
+    event.preventDefault();
+    if (!this.state.content) {
+      return;
+    }
+    this.messagesRef.push({
+      content: this.state.content,
+      sentAt: "today",
+      roomId: this.props.roomId
+    });
+    this.setState({ content: "" });
+  }
 
+  componentDidMount() {
+    this.messagesRef
+      .orderByChild("roomId")
+      .equalTo(this.props.roomId)
+      .on("child_added", snapshot => {
+        const message = snapshot.val();
+        message.key = snapshot.key;
+        this.setState({ messages: this.state.messages.concat(message) });
+      });
+  }
 
+  render() {
+    const Messages = this.state.messages.map(message => (
+      <li className="Messages" key={message.key}>{message.content}</li>
+    ));
+    console.log(this.props.roomId);
+
+    const newMsgForm = (
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <label>
+          Message:
+          <input
+            type="text"
+            value={this.state.content}
+            onChange={this.handleChange.bind(this)}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+
+    return (
+      <div className="chat-box">
+        {Messages}
+        {newMsgForm}
+      </div>
+    );
+  }
 }
+
+export default MessageList;

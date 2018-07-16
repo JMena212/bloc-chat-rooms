@@ -1,0 +1,31 @@
+ul {
+  vertical-align: middle;
+  display: block;
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 15%;
+  background-color: white;
+  height: 100%;
+  position: fixed;
+  float: left;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    background-color: grey;
+    display: block;
+    width: 15%;
+    padding: 8px;
+}
+
+.chat-box  {
+  display: block;
+  position: absolute;
+  top: 170px;
+  left: 270px;
+  color: blue;
+  list-style-type: none
+}
