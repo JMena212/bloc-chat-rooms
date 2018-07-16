@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../lib/firebase.js";
 import RoomList from "./RoomList";
+import '.././styles/chat.css'
 
 class MessageList extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class MessageList extends Component {
       sentAt: "today",
       roomId: this.props.roomId
     });
-    this.setState({ message: "" });
+    this.setState({ content: "" });
   }
 
   componentDidMount() {
@@ -65,7 +66,7 @@ class MessageList extends Component {
     );
 
     return (
-      <div>
+      <div className="chat-box">
         {Messages}
         {newMsgForm}
       </div>

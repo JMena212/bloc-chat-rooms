@@ -7,8 +7,8 @@ import { Nav } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
 import { PageHeader } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import "../styles/roomlist.css";
-import "../styles/normalize.css";
+import '.././styles/chat.css'
+
 
 class RoomList extends Component {
   constructor(props) {
@@ -42,11 +42,11 @@ class RoomList extends Component {
   render() {
     console.log(this.state.roomId);
     const Rooms = this.state.rooms.map(room => (
-      <Nav bsStyle="pills">
+      <div>
         <a href={room.key} key={room.key}>
           {room.roomName}
         </a>
-      </Nav>
+      </div>
     ));
 
     const createForm = (
@@ -63,14 +63,11 @@ class RoomList extends Component {
       </form>
     );
 
-    return (
-      <div className="Roomlist">
-        <PageHeader>Bloc Chat Rooms</PageHeader>
-        {createForm}
-        <h2> Join a Chat Room </h2>
-        {Rooms}
-      </div>
-    );
+    return [
+      <div> <PageHeader>Bloc Chat Rooms</PageHeader> {createForm} <h2> Join a Chat Room </h2>  </div>,
+      <div className="roomlist"> {Rooms}</div>
+
+    ];
   }
 }
 
