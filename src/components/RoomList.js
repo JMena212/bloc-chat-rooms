@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import MessageList from "./MessageList";
 import firebase from "../lib/firebase.js";
-import { Link } from "react-router-dom";
-import { NavItem } from "react-bootstrap";
-import { Nav } from "react-bootstrap";
-import { Navbar } from "react-bootstrap";
 import { PageHeader } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import '.././styles/chat.css'
 
 
@@ -43,7 +37,7 @@ class RoomList extends Component {
     console.log(this.state.roomId);
     const Rooms = this.state.rooms.map(room => (
       <div>
-        <a href={room.key} key={room.key}>
+        <a href={room.key} key={room.key} onClick={this.props.handleClick}>
           {room.roomName}
         </a>
       </div>

@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { Route, Link } from "react-router-dom";
-import logo from "./logo.svg";
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
 
@@ -12,11 +9,15 @@ class App extends Component {
     this.state = { activeRoom: "", roomId: roomPath };
   }
 
-  render() {
+  handleClick(e) {
+    e.preventDefault();
+    console.log("The room name was clicked.");
+  }
 
+  render() {
     return (
       <div>
-        <RoomList />
+        <RoomList handleClick={this.handleClick} />
         <MessageList roomId={this.state.roomId} />
       </div>
     );

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../lib/firebase.js";
-import RoomList from "./RoomList";
 import '.././styles/chat.css'
 
 class MessageList extends Component {
