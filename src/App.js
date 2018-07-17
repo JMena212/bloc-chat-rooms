@@ -9,15 +9,12 @@ class App extends Component {
     this.state = { activeRoom: "", roomId: roomPath };
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    console.log("The room name was clicked.");
-  }
+
 
   render() {
     return (
       <div>
-        <RoomList handleClick={this.handleClick} />
+        <RoomList />
         <MessageList roomId={this.state.roomId} />
       </div>
     );

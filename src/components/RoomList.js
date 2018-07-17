@@ -11,6 +11,12 @@ class RoomList extends Component {
     this.roomsRef = firebase.database().ref("rooms");
   }
 
+  handleClick(e) {
+    e.preventDefault();
+    console.log("The room name was clicked.");
+    this.setState({})
+  }
+
   handleChange(event) {
     event.preventDefault();
     this.setState({ roomName: event.target.value });
@@ -34,10 +40,9 @@ class RoomList extends Component {
   }
 
   render() {
-    console.log(this.state.roomId);
     const Rooms = this.state.rooms.map(room => (
       <div>
-        <a href={room.key} key={room.key} onClick={this.props.handleClick}>
+        <a href={room.key} key={room.key}  >
           {room.roomName}
         </a>
       </div>
@@ -58,8 +63,12 @@ class RoomList extends Component {
     );
 
     return [
-      <div> <PageHeader>Bloc Chat Rooms</PageHeader> {createForm} <h2> Join a Chat Room </h2>  </div>,
+      <div>
+      <PageHeader>Bloc Chat Rooms</PageHeader>
+      {createForm}
+      <h2> Join a Chat Room </h2>
       <div className="roomlist"> {Rooms}</div>
+      </div>
 
     ];
   }
