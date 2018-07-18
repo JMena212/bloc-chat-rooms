@@ -42,10 +42,7 @@ activeRoomMessage (message){
 };
 
   componentDidMount() {
-    this.messagesRef
-      .orderByChild("roomId")
-      .equalTo(this.props.roomId)
-      .on("child_added", snapshot => {
+    this.messagesRef.on("child_added", snapshot => {
         const message = snapshot.val();
         message.key = snapshot.key;
         this.setState({ messages: this.state.messages.concat(message) });

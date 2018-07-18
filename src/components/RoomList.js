@@ -7,7 +7,7 @@ import '.././styles/chat.css'
 class RoomList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [], roomName: "" };
+    this.state = { rooms: [], roomName: ""};
     this.roomsRef = firebase.database().ref("rooms");
   }
 
