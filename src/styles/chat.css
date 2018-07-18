@@ -5,7 +5,7 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 15%;
+  width: 12%;
   background-color: white;
   height: 100%;
   position: fixed;
@@ -17,7 +17,7 @@ span {
     text-decoration: none;
     background-color: grey;
     display: block;
-    width: 15%;
+    width: 12%;
     padding: 8px;
 }
 
