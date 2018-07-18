@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../lib/firebase.js";
-import RoomList from "./RoomList";
 import '.././styles/chat.css'
 
 class MessageList extends Component {
@@ -34,11 +33,16 @@ class MessageList extends Component {
     this.setState({ content: "" });
   }
 
+activeRoomMessage (message){
+  if (message.roomId === this.props.roomId) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
   componentDidMount() {
-    this.messagesRef
-      .orderByChild("roomId")
-      .equalTo(this.props.roomId)
-      .on("child_added", snapshot => {
+    this.messagesRef.on("child_added", snapshot => {
         const message = snapshot.val();
         message.key = snapshot.key;
         this.setState({ messages: this.state.messages.concat(message) });
@@ -46,10 +50,11 @@ class MessageList extends Component {
   }
 
   render() {
-    const Messages = this.state.messages.map(message => (
+    var activeMessages = this.state.messages.filter(this.activeRoomMessage.bind(this));
+    const Messages = activeMessages.map(message => (
       <li className="Messages" key={message.key}>{message.content}</li>
     ));
-    console.log(this.props.roomId);
+
 
     const newMsgForm = (
       <form onSubmit={this.handleSubmit.bind(this)}>

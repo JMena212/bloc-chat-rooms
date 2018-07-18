@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import MessageList from "./MessageList";
 import firebase from "../lib/firebase.js";
-import { Link } from "react-router-dom";
-import { NavItem } from "react-bootstrap";
-import { Nav } from "react-bootstrap";
-import { Navbar } from "react-bootstrap";
 import { PageHeader } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import '.././styles/chat.css'
 
 
@@ -14,9 +8,11 @@ import '.././styles/chat.css'
 class RoomList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [], roomName: "" };
+    this.state = { rooms: [], roomName: ""};
     this.roomsRef = firebase.database().ref("rooms");
   }
+
+
 
   handleChange(event) {
     event.preventDefault();
@@ -41,12 +37,11 @@ class RoomList extends Component {
   }
 
   render() {
-    console.log(this.state.roomId);
     const Rooms = this.state.rooms.map(room => (
       <div>
-        <a href={room.key} key={room.key}>
+        <span key={room.key} onClick={ () => this.props.handleClick(room) }>
           {room.roomName}
-        </a>
+        </span>
       </div>
     ));
 
@@ -65,8 +60,12 @@ class RoomList extends Component {
     );
 
     return [
-      <div> <PageHeader>Bloc Chat Rooms</PageHeader> {createForm} <h2> Join a Chat Room </h2>  </div>,
+      <div>
+      <PageHeader>Bloc Chat Rooms</PageHeader>
+      {createForm}
+      <h2> Join a Chat Room </h2>
       <div className="roomlist"> {Rooms}</div>
+      </div>
 
     ];
   }
