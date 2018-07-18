@@ -33,6 +33,14 @@ class MessageList extends Component {
     this.setState({ content: "" });
   }
 
+activeRoomMessage (message){
+  if (message.roomId === this.props.roomId) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
   componentDidMount() {
     this.messagesRef
       .orderByChild("roomId")
@@ -45,10 +53,11 @@ class MessageList extends Component {
   }
 
   render() {
-    const Messages = this.state.messages.map(message => (
+    var activeMessages = this.state.messages.filter(this.activeRoomMessage.bind(this));
+    const Messages = activeMessages.map(message => (
       <li className="Messages" key={message.key}>{message.content}</li>
     ));
-    console.log(this.props.roomId);
+
 
     const newMsgForm = (
       <form onSubmit={this.handleSubmit.bind(this)}>

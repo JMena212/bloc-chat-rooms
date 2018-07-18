@@ -5,16 +5,18 @@ import MessageList from "./components/MessageList";
 class App extends Component {
   constructor(props) {
     super(props);
-    var roomPath = window.location.pathname.substr(1);
-    this.state = { activeRoom: "", roomId: roomPath };
+    this.state = { activeRoom: "", roomId: ""  };
   }
 
+  selectRoom(room) {
+    this.setState({roomId: room.key})
+  }
 
 
   render() {
     return (
       <div>
-        <RoomList />
+        <RoomList handleClick={this.selectRoom.bind(this)}/>
         <MessageList roomId={this.state.roomId} />
       </div>
     );

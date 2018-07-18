@@ -11,11 +11,7 @@ class RoomList extends Component {
     this.roomsRef = firebase.database().ref("rooms");
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    console.log("The room name was clicked.");
-    this.setState({})
-  }
+
 
   handleChange(event) {
     event.preventDefault();
@@ -42,9 +38,9 @@ class RoomList extends Component {
   render() {
     const Rooms = this.state.rooms.map(room => (
       <div>
-        <a href={room.key} key={room.key}  >
+        <span key={room.key} onClick={ () => this.props.handleClick(room) }>
           {room.roomName}
-        </a>
+        </span>
       </div>
     ));
 
