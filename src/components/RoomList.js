@@ -37,6 +37,7 @@ class RoomList extends Component {
   }
 
   render() {
+    console.log(this.state.room.key);
     const Rooms = this.state.rooms.map(room => (
       <div>
         <span key={room.key} onClick={ () => this.props.handleClick(room) }>
