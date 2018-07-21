@@ -12,8 +12,6 @@ class RoomList extends Component {
     this.roomsRef = firebase.database().ref("rooms");
   }
 
-
-
   handleChange(event) {
     event.preventDefault();
     this.setState({ roomName: event.target.value });
@@ -33,18 +31,21 @@ class RoomList extends Component {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat(room) });
+      console.log(snapshot.key);
     });
   }
 
   render() {
-    console.log(this.state.room.key);
-    const Rooms = this.state.rooms.map(room => (
-      <div>
-        <span key={room.key} onClick={ () => this.props.handleClick(room) }>
-          {room.roomName}
-        </span>
-      </div>
-    ));
+
+      const Rooms = this.state.rooms.map((room,index) => (
+        <div  key={index}>
+          <span onClick={ () => this.props.handleClick(room) }>
+            {room.roomName}
+          </span>
+        </div>
+      ));
+
+
 
     const createForm = (
       <form onSubmit={this.handleRoomCreation.bind(this)}>
@@ -60,7 +61,7 @@ class RoomList extends Component {
       </form>
     );
 
-    return [
+    return (
       <div>
       <PageHeader>Bloc Chat Rooms</PageHeader>
       {createForm}
@@ -68,7 +69,7 @@ class RoomList extends Component {
       <div className="roomlist"> {Rooms}</div>
       </div>
 
-    ];
+    );
   }
 }
 
