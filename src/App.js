@@ -6,7 +6,11 @@ import User from "./components/User";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {roomId: ""};
+    this.state = {roomId: "", user: ""};
+  }
+
+  setUser(user){
+    this.setState({user: user})
   }
 
   selectRoom(room) {
@@ -18,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <User/>
+        <User setUser={this.setUser.bind(this)}/>
         <RoomList handleClick={this.selectRoom.bind(this)}/>
         <MessageList roomId={this.state.roomId} />
       </div>
