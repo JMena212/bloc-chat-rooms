@@ -11,52 +11,35 @@ class User extends Component {
     this.messagesRef = firebase.database().ref("messages");
   }
 
-  handleChange(event) {
-    event.preventDefault();
-    this.setState({
-      username: this.state.username
+  handleSignIn(event) {
+    const provider = new this.props.firebase.auth.GoogleAuthProvider();
+    this.props.firebase.auth().signInWithPopup( provider ).then(function(result) {
+      var token = result.credential.accessToken;
+      var user  = result.user;
+    }).catch(function(error) {
+      var errorCode = error.code;
+    })
     });
   }
 
-  handleClick(event) {
-    event.preventDefault();
-    if (!this.state.content) {
-      return;
-    }
-    this.messagesRef.push({
-      content: this.state.content,
-      sentAt: "today",
-      roomId: this.props.roomId
-    });
-    this.setState({ content: "" });
+  handleSignOut(event) {
+    const provider = new this.props.firebase.auth.GoogleAuthProvider();
+    this.props.firebase.auth().signOut();
   }
 
-activeRoomMessage (message){
-  if (message.roomId === this.props.roomId) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-  componentDidMount() {
-    this.messagesRef.on("child_added", snapshot => {
-        const message = snapshot.val();
-        message.key = snapshot.key;
-        this.setState({ messages: this.state.messages.concat(message) });
-      });
-  }
 
   render() {
-    <button> Sign In </button>
+    const signIn = "Sign In"
+    const signOut = "Sign Out"
 
 
     return (
       <div>
-
+      <span onClick={ () => this.handleSignIn(signIn)}> Sign In </span>
+      <span onClick={ () => this.handleSignOut(signOut)}> Sign Out </span>
       </div>
     );
   }
 }
 
-export default MessageList;
+export default User;

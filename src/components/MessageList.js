@@ -46,6 +46,7 @@ activeRoomMessage (message){
         const message = snapshot.val();
         message.key = snapshot.key;
         this.setState({ messages: this.state.messages.concat(message) });
+
       });
   }
 
