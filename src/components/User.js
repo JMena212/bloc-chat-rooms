@@ -7,26 +7,28 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = {user: ""};
-    this.userRef = new x.auth.GoogleAuthProvider() 
+    this.userRef = new x.auth.GoogleAuthProvider()
   }
 
   handleSignIn() {
     console.log(new x.auth.GoogleAuthProvider());
+
     const provider = new x.auth.GoogleAuthProvider();
     firebase
       .auth()
-      .signInWithPopup(provider)
+      .signInWithRedirect(provider)
       .then(function(result) {
-        const token = result.credential.accessToken;
-        const user = result.user;
-        this.props.setUser();
-      })
-      .catch(function(error) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        this.props.setUser(user);
+        return result.user;
+      }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         var email = error.email;
         var credential = error.credential;
       });
+
   }
 
   handleSignOut() {
