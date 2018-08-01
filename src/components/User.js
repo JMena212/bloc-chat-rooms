@@ -21,7 +21,6 @@ class User extends Component {
         var token = result.credential.accessToken;
         var user = result.user;
         this.props.setUser(user);
-        return result.user;
       }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -32,7 +31,7 @@ class User extends Component {
   }
 
   handleSignOut() {
-    const provider = new x.firebase.auth.GoogleAuthProvider();
+    const provider = new x.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signOut()
@@ -45,6 +44,17 @@ class User extends Component {
       this.props.setUser(user);
     });
   }
+
+  handleLogIn(){
+    var user = firebase.auth().currentUser;
+    if (user){
+      this.handleSignOut()
+    }else {
+      this.handleSignIn()
+    }
+  }
+
+
 
   render() {
     const signIn = "Sign In";
