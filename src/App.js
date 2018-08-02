@@ -11,6 +11,7 @@ class App extends Component {
 
   setUser(user){
     this.setState({user: user})
+    console.log(user)
   }
 
   selectRoom(room) {

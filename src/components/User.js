@@ -12,37 +12,28 @@ class User extends Component {
   }
 
   handleSignIn() {
-    console.log(new x.auth.GoogleAuthProvider());
-
+    /*console.log(new x.auth.GoogleAuthProvider());*/
     const provider = new x.auth.GoogleAuthProvider();
     var user = firebase.auth().currentUser;
+    console.log(firebase.auth().currentUser)
     var name, email, photoUrl, uid, emailVerified;
-    if (user != null) {
-    user.providerData.forEach(function (profile) {
-    console.log("Sign-in provider: " + profile.providerId);
-    console.log("  Provider-specific UID: " + profile.uid);
-    console.log("  Name: " + profile.displayName);
-    console.log("  Email: " + profile.email);
-    console.log("  Photo URL: " + profile.photoURL);
-  });
-    } else {
-      firebase
-        .auth()
-        .signInWithRedirect(provider)
-        .then(function(result) {
-          var token = result.credential.accessToken;
-          var user = result.user;
-          this.props.setUser(user);
-        })
-        .catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-          console.log(emailVerified);
-        });
-    }
-    console.log(emailVerified);
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function(result) {
+        var token = result.credential.accessToken;
+        this.props.setUser(result.user);
+        window.localStorage.setItem("user", "user");
+      })
+      .catch(function(error) {
+        window.localStorage.setItem("error", error)
+        console.log(error);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+      });
   }
 
   handleSignOut() {
@@ -63,6 +54,7 @@ class User extends Component {
   render() {
     const signIn = "Sign In";
     const signOut = "Sign Out";
+    window.localStorage.setItem("error", "error")
 
     return (
       <div>
