@@ -24,8 +24,8 @@ span {
 .chat-box  {
   display: block;
   position: absolute;
-  top: 170px;
-  left: 270px;
+  top: 600px;
+  left: 300px;
   color: blue;
   list-style-type: none
 }
