@@ -72,7 +72,8 @@ class App extends Component {
          displayUser={currentUser}
         />
         <RoomList handleClick={this.selectRoom.bind(this)} />
-        <MessageList roomId={this.state.roomId} />
+        <MessageList roomId={this.state.roomId}
+            displayUser={currentUser} />
       </div>
     );
   }

@@ -28,7 +28,8 @@ class MessageList extends Component {
     this.messagesRef.push({
       content: this.state.content,
       sentAt: "today",
-      roomId: this.props.roomId
+      roomId: this.props.roomId,
+      user: this.props.displayUser
     });
     this.setState({ content: "" });
   }
@@ -53,7 +54,7 @@ activeRoomMessage (message){
   render() {
     var activeMessages = this.state.messages.filter(this.activeRoomMessage.bind(this));
     const Messages = activeMessages.map(message => (
-      <li className="Messages" key={message.key}>{message.content}</li>
+      <li className="Messages" key={message.key}>{message.content} user:{message.user}</li>
     ));
 
 

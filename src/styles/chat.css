@@ -29,3 +29,7 @@ span {
   color: blue;
   list-style-type: none
 }
+
+.Username-msg {
+  color: grey;
+}
