@@ -54,7 +54,10 @@ activeRoomMessage (message){
   render() {
     var activeMessages = this.state.messages.filter(this.activeRoomMessage.bind(this));
     const Messages = activeMessages.map(message => (
-      <li className="Messages" key={message.key}>{message.content} user:{message.user}</li>
+      <div>
+      <li className="Messages" key={message.key}>{message.content} </li>
+      <li className= "Username-msg"> {message.user}</li>
+      </div>
     ));
 
 
