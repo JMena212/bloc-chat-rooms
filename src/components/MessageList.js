@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../lib/firebase.js";
+import x from "firebase";
 import '.././styles/chat.css'
 
 class MessageList extends Component {
@@ -7,7 +8,8 @@ class MessageList extends Component {
     super(props);
     this.state = {
       content: "",
-      messages: []
+      messages: [],
+      sentAt: ""
     };
     this.messagesRef = firebase.database().ref("messages");
   }
@@ -16,7 +18,8 @@ class MessageList extends Component {
     event.preventDefault();
     this.setState({
       content: event.target.value,
-      username: this.state.username
+      username: this.state.username,
+      sentAt: this.state.firebase.database.ServerValue.TIMESTAMP
     });
   }
 
@@ -29,7 +32,8 @@ class MessageList extends Component {
       content: this.state.content,
       sentAt: "today",
       roomId: this.props.roomId,
-      user: this.props.displayUser
+      user: this.props.displayUser,
+      sentAt: this.state.sentAt
     });
     this.setState({ content: "" });
   }
@@ -57,6 +61,7 @@ activeRoomMessage (message){
       <div>
       <li className="Messages" key={message.key}>{message.content} </li>
       <li className= "Username-msg"> {message.user}</li>
+      <li className= "timestamp"> {message.sentAt}</li>
       </div>
     ));
 
